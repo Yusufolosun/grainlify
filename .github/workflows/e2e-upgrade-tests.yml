@@ -2,12 +2,12 @@ name: E2E Upgrade and Migration Tests
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, master]
     paths:
       - 'contracts/**'
       - '.github/workflows/e2e-upgrade-tests.yml'
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, master]
     paths:
       - 'contracts/**'
   workflow_dispatch:

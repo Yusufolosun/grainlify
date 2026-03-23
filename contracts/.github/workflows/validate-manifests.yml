@@ -2,13 +2,13 @@ name: Validate Contract Manifests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
     paths:
       - 'contracts/*-manifest.json'
       - 'contracts/contract-manifest-schema.json'
       - '.github/workflows/validate-manifests.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
     paths:
       - 'contracts/*-manifest.json'
       - 'contracts/contract-manifest-schema.json'
