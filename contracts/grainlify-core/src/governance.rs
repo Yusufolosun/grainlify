@@ -1,6 +1,4 @@
-use soroban_sdk::{
-    contract, contractimpl, contracttype, symbol_short, Address, BytesN, Env, Map, Symbol,
-};
+use soroban_sdk::{contracttype, symbol_short, Address, BytesN, Env, Map, Symbol};
 
 /// Lifecycle state for a governance proposal.
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -151,10 +149,13 @@ pub(crate) fn validate_config(config: &GovernanceConfig) -> Result<(), Error> {
     Ok(())
 }
 
-#[contract]
+// Shared governance types and helpers for Grainlify Core.
+//
+// This module must not export a second Soroban contract into the same crate,
+// otherwise entrypoints like `init_governance` collide with the main
+// GrainlifyContract exports during `stellar contract build`.
 pub struct GovernanceContract;
 
-#[contractimpl]
 impl GovernanceContract {
     /// Initializes governance state for the standalone governance contract.
     pub fn init_governance(
