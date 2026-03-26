@@ -39,13 +39,14 @@ mod test {
             // Verify healthy initially
             assert!(monitoring::verify_invariants(&env));
 
-            // TAMPER: Force 5 errors but only 2 total operations (Inconsistent!)
             let op_key = Symbol::new(&env, "op_count");
             let err_key = Symbol::new(&env, "err_count");
+
+            // Force 5 errors but only 2 total operations (inconsistent).
             env.storage().persistent().set(&op_key, &2u64);
             env.storage().persistent().set(&err_key, &5u64);
 
-            // Verify that verification detects the drift
+            // Invariant check must detect the drift.
             assert!(
                 !monitoring::verify_invariants(&env),
                 "Invariants should fail when error_count > operation_count"
